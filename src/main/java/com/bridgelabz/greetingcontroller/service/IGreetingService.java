@@ -9,4 +9,5 @@ public interface IGreetingService {
     public GreetingMessage createMessage(UserDTO userDTO);
     public GreetingMessage findById(Long id);
     public List<GreetingMessage> findAllMessage();
+    public GreetingMessage updateMessage(Long id, UserDTO userDTO);
 }

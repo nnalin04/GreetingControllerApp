@@ -39,4 +39,11 @@ public class GreetingService implements IGreetingService{
     public List<GreetingMessage> findAllMessage() {
         return greetingRepository.findAll();
     }
+
+    @Override
+    public GreetingMessage updateMessage(Long id, UserDTO userDTO) {
+        GreetingMessage greetingMessage = findById(id);
+        greetingMessage.setGreetingMessage(getMessage(userDTO));
+        return greetingRepository.save(greetingMessage);
+    }
 }
