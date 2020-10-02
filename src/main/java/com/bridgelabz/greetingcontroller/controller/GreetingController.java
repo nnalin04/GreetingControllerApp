@@ -1,21 +1,37 @@
 package com.bridgelabz.greetingcontroller.controller;
 
 import com.bridgelabz.greetingcontroller.dto.UserDTO;
-import com.bridgelabz.greetingcontroller.service.GreetingService;
+import com.bridgelabz.greetingcontroller.modle.GreetingMessage;
+import com.bridgelabz.greetingcontroller.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping(path = "/hello")
 public class GreetingController {
 
     @Autowired
-    GreetingService greetingService;
+    IGreetingService greetingService;
 
-    @GetMapping(path = "/hello")
-    public ResponseEntity getMessage(@RequestBody UserDTO userDTO) {
-        String message = greetingService.getMessage(userDTO);
-        return new ResponseEntity(message, HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity createMessage(@RequestBody UserDTO userDTO) {
+        GreetingMessage message = greetingService.createMessage(userDTO);
+        return new ResponseEntity(message.getGreetingMessage(), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity getMessageById(@RequestParam Long id) {
+        GreetingMessage greetingMessage = greetingService.findById(id);
+        return new ResponseEntity(greetingMessage.getGreetingMessage(), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List> getAllMessage() {
+        List<GreetingMessage> greetingMessages = greetingService.findAllMessage();
+        return new ResponseEntity<>(greetingMessages, HttpStatus.OK);
     }
 }
