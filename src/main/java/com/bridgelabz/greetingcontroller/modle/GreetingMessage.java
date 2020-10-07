@@ -14,8 +14,7 @@ import javax.persistence.Id;
 public class GreetingMessage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long greetingId;
+    @GeneratedValue(strategy = GenerationType.AUTO)    private Long greetingId;
 
     private String greetingMessage;
 }
