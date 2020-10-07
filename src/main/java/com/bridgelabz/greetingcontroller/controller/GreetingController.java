@@ -1,5 +1,6 @@
 package com.bridgelabz.greetingcontroller.controller;
 
+import com.bridgelabz.greetingcontroller.dto.GreetingDTO;
 import com.bridgelabz.greetingcontroller.dto.UserDTO;
 import com.bridgelabz.greetingcontroller.modle.GreetingMessage;
 import com.bridgelabz.greetingcontroller.service.IGreetingService;
@@ -23,21 +24,27 @@ public class GreetingController {
         return new ResponseEntity(message.getGreetingMessage(), HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("/id")
     public ResponseEntity getMessageById(@RequestParam Long id) {
-        GreetingMessage greetingMessage = greetingService.findById(id);
+        GreetingMessage greetingMessage = greetingService.findMessageById(id);
         return new ResponseEntity(greetingMessage.getGreetingMessage(), HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List> getAllMessage() {
         List<GreetingMessage> greetingMessages = greetingService.findAllMessage();
         return new ResponseEntity<>(greetingMessages, HttpStatus.OK);
     }
-    
+
     @PutMapping()
-    public ResponseEntity updateMessageById(@RequestParam Long id, @RequestBody UserDTO userDTO) {
-        GreetingMessage greetingMessage = greetingService.updateMessage(id, userDTO);
+    public ResponseEntity updateMessageById(@RequestBody GreetingDTO greetingDTO) {
+        GreetingMessage greetingMessage = greetingService.updateMessage(greetingDTO);
         return new ResponseEntity(greetingMessage.getGreetingMessage(), HttpStatus.OK);
+    }
+
+    @DeleteMapping()
+    public ResponseEntity deleteMessageById(@RequestParam Long id) {
+        String message = greetingService.deleteMessage(id);
+        return new ResponseEntity(message, HttpStatus.OK);
     }
 }
