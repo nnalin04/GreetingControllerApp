@@ -1,4 +1,4 @@
-package com.bridgelabz.greetingcontroller;
+package com.bridgelabz.greetingcontroller.service;
 
 import com.bridgelabz.greetingcontroller.dto.UserDTO;
 import com.bridgelabz.greetingcontroller.modle.GreetingMessage;

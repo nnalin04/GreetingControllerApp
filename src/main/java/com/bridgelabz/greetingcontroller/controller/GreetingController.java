@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(path = "/hello")
 public class GreetingController {
@@ -20,6 +21,7 @@ public class GreetingController {
 
     @PostMapping
     public ResponseEntity createMessage(@RequestBody UserDTO userDTO) {
+        System.out.println("request body"+ userDTO);
         GreetingMessage message = greetingService.createMessage(userDTO);
         return new ResponseEntity(message.getGreetingMessage(), HttpStatus.OK);
     }
@@ -32,6 +34,7 @@ public class GreetingController {
 
     @GetMapping("/all")
     public ResponseEntity<List> getAllMessage() {
+        System.out.println("Hello");
         List<GreetingMessage> greetingMessages = greetingService.findAllMessage();
         return new ResponseEntity<>(greetingMessages, HttpStatus.OK);
     }
